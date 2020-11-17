@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+            id="action_report_stock_moves_csv"
+            model="report.stock_moves_report.stock_moves_report"
+            string="Stock Moves"
+            report_type="xlsx"
+            name="stock_moves_report.stock_moves_report"
+            file="stock_moves_report.stock_moves_report"
+            attachment_use="False"
+        />
+    </data>
+</odoo>

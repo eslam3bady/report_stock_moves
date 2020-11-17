@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_moves_report_form_wiz" model="ir.ui.view">
+            <field name="name">stock.moves.report.wiz.form</field>
+            <field name="model">stock.moves.report.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group>
+                        <field name="report_type" string="Report Type"/>
+                    </group>
+                    <group>
+                        <field name="compute_at_date" widget="radio"/>
+                        <field name="options" widget="radio"/>
+                        <field name="branches" widget="radio"/>
+                        <field name="categs" widget="radio"/>
+                        <field name="vendor" widget="radio"/>
+                        <field name="with_zero_values" widget="radio"/>
+                        <field name="sales_percent" widget="radio"/>
+                        <group>
+                            <field name="from_percent"
+                                   attrs="{'invisible': [('sales_percent', '=', 'all')], 'required': [('sales_percent', '=', 'percentage')]}"/>
+                        </group>
+                        <group>
+                            <field name="to_percent"
+                                   attrs="{'invisible': [('sales_percent', '=', 'all')], 'required': [('sales_percent', '=', 'percentage')]}"/>
+                        </group>
+                        <group>
+                            <field name="date_from"
+                                   attrs="{'invisible': [('compute_at_date', '=', 0)], 'required': [('compute_at_date', '=', 1)]}"/>
+                        </group>
+                        <group>
+                            <field name="date_to"
+                                   attrs="{'invisible': [('compute_at_date', '=', 0)], 'required': [('compute_at_date', '=', 1)]}"/>
+                        </group>
+                        <group>
+                            <field name="branch_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('branches', '=', 'all')], 'required': [('branches', '=', 'branch')]}"/>
+                        </group>
+                        <group/>
+                        <group>
+                            <field name="categ_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('categs', '=', 'all')], 'required': [('categs', '=', 'categ')]}"/>
+                        </group>
+                        <group/>
+                        <group>
+                            <field name="vendor_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('vendor', '=', 'all')], 'required': [('vendor', '=', 'vendor')]}"/>
+                        </group>
+                    </group>
+                    <footer>
+<!--                        <button name="view_report_pdf" string="Print PDF" type="object" default_focus="1"-->
+<!--                                class="oe_highlight"/>-->
+                        <button name="view_report_xlsx" string="Print Excel" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_stock_moves_report_form_view" model="ir.actions.act_window">
+            <field name="name">Stock Moves Report</field>
+            <field name="res_model">stock.moves.report.wiz</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock_moves_report_form_wiz"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_stock_moves_report"
+                  name="Stock Moves Report"
+                  action="action_stock_moves_report_form_view"
+                  parent="stock.menu_warehouse_report"/>
+    </data>
+</odoo>
